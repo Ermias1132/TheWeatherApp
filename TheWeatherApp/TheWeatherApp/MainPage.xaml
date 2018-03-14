@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:TheWeatherApp"
+             x:Class="TheWeatherApp.MainPage" Title="Home">
+    <ContentPage.Content>
+        <RelativeLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <StackLayout Padding="10, 40, 10, 0" Spacing="10" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand"  >
+                
+                <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand"  >
+                    <Label Text="Zip Code:" VerticalOptions="Center" />
+                    <Entry x:Name="ZipCode" Placeholder="Enter five digit zip code" HorizontalOptions="FillAndExpand" Text="{Binding ZipCode, Mode=TwoWay}" ></Entry>
+                    <!--Image="starfavorite.jpg"--> <Button x:Name="FavoriteButton" 
+                            Text="Fav"
+                            BorderWidth = "1" WidthRequest="40" HeightRequest="40"  Command="{Binding FavoriteCommand}" CommandParameter="{Binding Source={x:Reference ZipCode}, Path=Text}" ></Button>
+                </StackLayout>
+
+                <StackLayout HorizontalOptions="FillAndExpand"  >
+                    <Button x:Name="SearchButton" BorderWidth = "1" WidthRequest ="100"  Text="Search" HorizontalOptions="CenterAndExpand" Command="{Binding WeatherCommand}" CommandParameter="{Binding Source={x:Reference ZipCode}, Path=Text}"  ></Button>
+                </StackLayout>
+            </StackLayout>
+            <ActivityIndicator x:Name ="activityIndicator"
+                               VerticalOptions="CenterAndExpand"
+                               HorizontalOptions="CenterAndExpand" 
+                               IsVisible="{Binding IsVisible, Mode=TwoWay}" IsRunning="{Binding IsRunning, Mode=TwoWay}" 
+                               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5}"
+                               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.33}">
+                <ActivityIndicator.Color>
+                    <OnPlatform x:TypeArguments="Color">
+                        <On Platform="iOS">#2499CE</On>
+                    </OnPlatform>
+                </ActivityIndicator.Color>
+            </ActivityIndicator>
+        </RelativeLayout>
+    </ContentPage.Content>
+</ContentPage>
